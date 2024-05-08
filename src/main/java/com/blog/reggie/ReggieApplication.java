@@ -6,11 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 
-/**
- * @author frx
- * @version 1.0
- * @date 2022/4/26  23:18
- */
 @Slf4j
 @SpringBootApplication
 @ServletComponentScan
