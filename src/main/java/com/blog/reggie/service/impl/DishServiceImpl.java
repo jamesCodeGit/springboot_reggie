@@ -85,7 +85,14 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
             return item;
         }).collect(Collectors.toList());
         dishFlavorService.saveBatch(flavors);
-
-
     }
+
+    @Override
+    public List<Dish> getByCategoryId(Long id) {
+        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Dish::getCategoryId, id);
+        return this.list(queryWrapper);
+    }
+
+
 }

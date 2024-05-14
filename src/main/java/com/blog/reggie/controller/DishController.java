@@ -8,7 +8,6 @@ import com.blog.reggie.dto.DishDto;
 import com.blog.reggie.entity.Category;
 import com.blog.reggie.entity.Dish;
 import com.blog.reggie.service.CategoryService;
-import com.blog.reggie.service.DishFlavorService;
 import com.blog.reggie.service.DishService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -29,9 +28,6 @@ public class DishController {
 
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private DishFlavorService dishFlavorService;
 
     /**
      * 新增菜品
@@ -103,6 +99,22 @@ public class DishController {
     public R<DishDto> get(@PathVariable("id") Long id) {
         DishDto dishDto = dishService.getByIdWithFlavor(id);
         return R.success(dishDto);
+    }
+
+    @GetMapping("/list")
+    public R<List<Dish>> dishList(@RequestParam("categoryId") Long id){
+        List<Dish> dishList = dishService.getByCategoryId(id);
+
+        if (dishList != null){
+            return R.success(dishList);
+        }
+        return R.error("该id找不到菜品");
+    }
+
+    @PutMapping
+    public R<String> update(@RequestBody DishDto dishDto){
+        dishService.updateWithFlavor(dishDto);
+        return R.success("更新信息成功");
     }
 
 }
